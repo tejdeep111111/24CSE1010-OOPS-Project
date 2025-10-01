@@ -4,7 +4,7 @@ public class Course {
     private String courseCode;
     
     //Constructor 
-    public Course(String courseName,String courseCode,int maxCapacity) {
+    public Course(String courseName,String courseCode) {
         this.courseName=courseName;
         this.courseCode=courseCode;
     }

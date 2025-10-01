@@ -14,14 +14,18 @@ public class Professor extends Person{
     //member function to assign a course to a professor
     public void teachCourse(Course course) {
         coursesTaught.add(course);
-        System.out.println(getName()+"is assigned to teach: "+course.getCourseCode());
+        System.out.println(getName()+" is assigned to teach: "+course.getCourseCode());
     }
-    //member function to enroll a student to a course taught by the professor
+    //member function to enroll a student to a course taught by the professor(A professor can also register a student for his course)
     public void enrollStudent(Course course,Student student) {
         student.registerCourse(course);
         System.out.println(student.getName()+" is enrolled for the  course "+course.getCourseCode());
     }
-
+    //member function to submit the grade of a course to a student(by calling the member function assignGrade of class student)
+    public void submitGrade(Course course,Student student,String grade) {
+        student.assignGrade(course, grade);
+        System.out.println("Professor,"+getName()+" submits grade "+grade+" for "+student.getName()+" in "+course.getCourseCode());
+    }
     @Override
     public void displayRole() {
         System.out.println("Is a Professor");

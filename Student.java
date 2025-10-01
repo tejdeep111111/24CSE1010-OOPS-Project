@@ -3,11 +3,11 @@ import java.util.List;
 
 //This class is inherited from the abstract base class Person
 public class Student extends Person {
-    private String joiningYear;
+    private int joiningYear;
     private String major;
     private List<Course> registeredCourses;
     //Constructor
-    public Student(String name,String id,String joiningYear,String major) {
+    public Student(String name,String id,int joiningYear,String major) {
         super(name,id);
         this.joiningYear=joiningYear;
         this.major=major;
