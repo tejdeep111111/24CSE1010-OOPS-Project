@@ -7,10 +7,10 @@ public abstract class Person {
         this.name=name;
         this.id=id;
     }
-    public getName() {return name;}
-    public getId() {return id;}
+    public String getName() {return name;}
+    public String getId() {return id;}
     //abstract method(the classes that are derived from this class(Person) must provide implementation for this method)
-    public abstract void displayRole() {}
+    public abstract void displayRole();
     //Non-abstract method(abstract class can contain both abstract and non-abstract methods)
     public void displayBasicInfo() {
         System.out.println("NAME: "+name+",ID: "+id);
