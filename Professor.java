@@ -3,11 +3,17 @@ import java.util.List;
 
 //This class is inherited from the abstract class Person
 public class Professor extends Person{
+
+    //static int nextProfessorId is used to track the next available id number and
+    //static final(cant be modified) string IdPrefix is used as prefix for for all
+    private static final String IdPrefix="P";
+    private static int nextProfessorId=500;
+
     private String department;
     private List<Course> coursesTaught;
     //Constructor
-    public Professor(String name,String id,String department) {
-        super(name,id);
+    public Professor(String name,String department) {
+        super(name,generateUniqueId());
         this.department=department;
         this.coursesTaught=new ArrayList<>();
     }
@@ -36,5 +42,9 @@ public class Professor extends Person{
         for (Course course : coursesTaught) {
             System.out.println("-"+course.getCourseInfo());
         }
+    }
+    public static String generateUniqueId() {
+        nextProfessorId++;
+        return IdPrefix+nextProfessorId;
     }
 }

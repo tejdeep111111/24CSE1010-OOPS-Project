@@ -10,25 +10,35 @@ public class Application {
         Course oops=new Course("Object Oriented Programming","CS203",1);
         Course oopsLab=new Course("Object Oriented Programming Lab", "CS206",62);
         Student tej=new Student("Bhimireddy Tej Deep Reddy","24CSE1010",2024,"BTechCSE");
-        Student teja=new Student("Soma Teja","24CSE1047",2024,"BTechCSE");
-        Professor mini=new Professor("Dr.Mini S", "cse1", "CSE");
+        Student soma=new Student("Soma Teja","24CSE1047",2024,"BTechCSE");
+        Professor mini=new Professor("Dr.Mini S", "CSE");
+        Professor vnk=new Professor("Dr.K Venkat Naresh", "CSE");
 
         mini.teachCourse(oops);
-        mini.teachCourse(oopsLab);
+        //mini.teachCourse(oopsLab);
+        vnk.teachCourse(oopsLab);
         try {
             mini.enrollStudent(oops,tej);
-            mini.enrollStudent(oopsLab,tej);
-            mini.enrollStudent(oops, teja);
+            vnk.enrollStudent(oopsLab,soma);
+            mini.enrollStudent(oops, soma);
+
+
+            //error:(try block ends whenever an exception occoured) so remaining block of code in try will not be executed
+
+            
+            vnk.enrollStudent(oopsLab,tej);
         }
         //getMessage is a default fn of exception class
         catch(CourseFullException e) {
             System.out.println("Caught Error: "+e.getMessage());
         }
 
-        tej.withdrawCourse(oopsLab);
+        //tej.withdrawCourse(oopsLab);
 
+        indentifyRoleDisplayInfo(vnk);
         indentifyRoleDisplayInfo(tej);
         indentifyRoleDisplayInfo(mini);
-        indentifyRoleDisplayInfo(teja);
+        indentifyRoleDisplayInfo(soma);
+        
     }
 }
