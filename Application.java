@@ -7,8 +7,8 @@ public class Application {
         person.displayRole();
     }
     public static void main(String[] args) {
-        Course oops=new Course("Object Oriented Programming","CS203");
-        Course oopsLab=new Course("Object Oriented Programming Lab", "CS206");
+        Course oops=new Course("Object Oriented Programming","CS203",60);
+        Course oopsLab=new Course("Object Oriented Programming Lab", "CS206",62);
         Student tej=new Student("Bhimireddy Tej Deep Reddy","24CSE1010",2024,"BTechCSE");
         Professor mini=new Professor("Dr.Mini S", "cse1", "CSE");
 
@@ -17,6 +17,8 @@ public class Application {
         
         mini.enrollStudent(oops,tej);
         mini.enrollStudent(oopsLab,tej);
+
+        tej.withdrawCourse(oopsLab);
 
         indentifyRoleDisplayInfo(tej);
         indentifyRoleDisplayInfo(mini);

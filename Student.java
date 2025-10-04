@@ -15,7 +15,16 @@ public class Student extends Person {
     }
     //member function to register a course to a student
     public void registerCourse(Course course) {
+        if(course.getCurrentEnrollment()>=course.getMaxCapacity()) {
+            System.out.println("Error: "+course.getCourseCode()+" is full. Can't register "+getName()+".");
+            return;
+        }
+        if(registeredCourses.contains(course)) {
+            System.out.println("Warning: "+getName()+" is already registered for "+course.getCourseCode()+".");
+            return;
+        }
         registeredCourses.add(course);
+        course.incrementEnrollment();
         System.out.println(getName()+" registered for: "+course.getCourseCode());
     }
     //member function to assign a grade to a student
@@ -36,6 +45,15 @@ public class Student extends Person {
         //is a java for each loop(iterates linearly upto the end of the list)
         for(Course course : registeredCourses) {
             System.out.println(" - "+course.getCourseInfo());
+        }
+    }
+    public void withdrawCourse(Course course) {
+        if(registeredCourses.remove(course)) {
+            course.decrementEnrollment();
+            System.out.println(getName()+" successfully withdrew from:"+course.getCourseCode());
+        }
+        else {
+            System.out.println("Error: "+getName()+" is not registered for"+course.getCourseCode()+".");
         }
     }
 }
