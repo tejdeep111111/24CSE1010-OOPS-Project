@@ -7,20 +7,28 @@ public class Application {
         person.displayRole();
     }
     public static void main(String[] args) {
-        Course oops=new Course("Object Oriented Programming","CS203",60);
+        Course oops=new Course("Object Oriented Programming","CS203",1);
         Course oopsLab=new Course("Object Oriented Programming Lab", "CS206",62);
         Student tej=new Student("Bhimireddy Tej Deep Reddy","24CSE1010",2024,"BTechCSE");
+        Student teja=new Student("Soma Teja","24CSE1047",2024,"BTechCSE");
         Professor mini=new Professor("Dr.Mini S", "cse1", "CSE");
 
         mini.teachCourse(oops);
         mini.teachCourse(oopsLab);
-        
-        mini.enrollStudent(oops,tej);
-        mini.enrollStudent(oopsLab,tej);
+        try {
+            mini.enrollStudent(oops,tej);
+            mini.enrollStudent(oopsLab,tej);
+            mini.enrollStudent(oops, teja);
+        }
+        //getMessage is a default fn of exception class
+        catch(CourseFullException e) {
+            System.out.println("Caught Error: "+e.getMessage());
+        }
 
         tej.withdrawCourse(oopsLab);
 
         indentifyRoleDisplayInfo(tej);
         indentifyRoleDisplayInfo(mini);
+        indentifyRoleDisplayInfo(teja);
     }
 }

@@ -13,11 +13,11 @@ public class Student extends Person {
         this.major=major;
         this.registeredCourses=new ArrayList<>();
     }
-    //member function to register a course to a student
-    public void registerCourse(Course course) {
+    //member function to register a course to a student(Can throw CourseFullException)
+    public void registerCourse(Course course) throws CourseFullException{
         if(course.getCurrentEnrollment()>=course.getMaxCapacity()) {
-            System.out.println("Error: "+course.getCourseCode()+" is full. Can't register "+getName()+".");
-            return;
+            //throwing user defined custom exception
+            throw new CourseFullException("Course "+course.getCourseCode()+" is full. Can't register "+getName()+".");
         }
         if(registeredCourses.contains(course)) {
             System.out.println("Warning: "+getName()+" is already registered for "+course.getCourseCode()+".");

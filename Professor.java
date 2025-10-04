@@ -17,7 +17,8 @@ public class Professor extends Person{
         System.out.println(getName()+" is assigned to teach: "+course.getCourseCode());
     }
     //member function to enroll a student to a course taught by the professor(A professor can also register a student for his course)
-    public void enrollStudent(Course course,Student student) {
+    //As this fn calls registerCourse of student class which might throw an error
+    public void enrollStudent(Course course,Student student) throws CourseFullException {
         student.registerCourse(course);
         System.out.println(student.getName()+" is enrolled for the  course "+course.getCourseCode());
     }
