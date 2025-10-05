@@ -8,7 +8,7 @@ public class Student extends Person {
     private List<Course> registeredCourses;
     //Constructor
     public Student(String name,String id,int joiningYear,String major) {
-        super(name,id);
+        super(name,id,EnumRole.STUDENT);
         this.joiningYear=joiningYear;
         this.major=major;
         this.registeredCourses=new ArrayList<>();
@@ -28,9 +28,9 @@ public class Student extends Person {
         System.out.println(getName()+" registered for: "+course.getCourseCode());
     }
     //member function to assign a grade to a student
-    public void assignGrade(Course course,String grade) {
+    public void assignGrade(Course course,EnumGrade grade) {
         if(registeredCourses.contains(course)) {
-            System.out.println("Assigned grade "+grade+" to "+this.getName()+" in "+course.getCourseCode());
+            System.out.println("Assigned grade "+grade.toString()+" to "+this.getName()+" in "+course.getCourseCode());
         } 
         else {
             System.out.println(this.getName()+" is not registered for "+course.getCourseCode());
@@ -39,7 +39,7 @@ public class Student extends Person {
     //implementation of the abstract method of abstact base class Person
     @Override
     public void displayRole() {
-        System.out.println("Is a Student joined in the academic year: "+joiningYear);
+        System.out.println("Joined in the academic year: "+joiningYear);
         System.out.println("Major in: "+major);
         System.out.println("Registered Courses("+registeredCourses.size()+"):");
         //is a java for each loop(iterates linearly upto the end of the list)

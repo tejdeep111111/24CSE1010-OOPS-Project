@@ -13,7 +13,7 @@ public class Professor extends Person{
     private List<Course> coursesTaught;
     //Constructor
     public Professor(String name,String department) {
-        super(name,generateUniqueId());
+        super(name,generateUniqueId(),EnumRole.PROFESSOR);
         this.department=department;
         this.coursesTaught=new ArrayList<>();
     }
@@ -29,13 +29,12 @@ public class Professor extends Person{
         System.out.println(student.getName()+" is enrolled for the  course "+course.getCourseCode());
     }
     //member function to submit the grade of a course to a student(by calling the member function assignGrade of class student)
-    public void submitGrade(Course course,Student student,String grade) {
+    public void submitGrade(Course course,Student student,EnumGrade grade) {
         student.assignGrade(course, grade);
-        System.out.println("Professor,"+getName()+" submits grade "+grade+" for "+student.getName()+" in "+course.getCourseCode());
+        System.out.println("Professor,"+getName()+" submits grade "+grade.toString()+" for "+student.getName()+" in "+course.getCourseCode());
     }
     @Override
     public void displayRole() {
-        System.out.println("Is a Professor");
         System.out.println("Department: "+department);
         System.out.println("Courses Taught("+coursesTaught.size()+"):");
         //is a java for each loop(iterates linearly upto the end of the list)
