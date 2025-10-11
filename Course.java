@@ -1,5 +1,8 @@
 //This class is used to create course instances(Ex-CS203)
-public class Course {
+
+import java.io.Serializable;
+
+public class Course implements Serializable{
     private String courseName;
     private String courseCode;
     private int maxCapacity;

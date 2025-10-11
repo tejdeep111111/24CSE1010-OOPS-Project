@@ -1,8 +1,73 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Manager {
+
+
+    private static final String DATA_FILE="university_data.ser";
+    //method that does Serialization(Saving Data)
+    public static void saveData(List<Course> courses,List<Person> people) {
+        //this is an object array that holds both the lists
+        Object[] dataToSave = {courses,people};
+        //the resourses that are opened in () implements AutoClosable,so they are automatically closed when the try block exits(either normally or due to an exception)
+        //this overcomes the need of explicitly writing finally block for resourse cleanup
+        //FileOutputStream-creates a connection between the program and the specific file on the disk
+        //ObjectOutputStream-It has the method writeObject() that handles the work of serialization
+        try(FileOutputStream fileOut=new FileOutputStream(DATA_FILE);
+            ObjectOutputStream objectOut=new ObjectOutputStream(fileOut)) {
+                //we must have to pass every object that we have to save to the writeObject() method
+                objectOut.writeObject(dataToSave);
+                System.out.println("Application data successfully saved to "+DATA_FILE);
+        } catch(IOException e) {
+            e.printStackTrace();
+            System.out.println("ERROR saving data: "+e.getMessage());
+        }
+    }
+    //method that does De-Serialization
+    public static Object[] loadData() {
+        try(FileInputStream fileIn=new FileInputStream(DATA_FILE);
+            ObjectInputStream objectIn=new ObjectInputStream(fileIn)) {
+                Object[] loadedData=(Object[]) objectIn.readObject();
+                System.out.println("Application read the data successfully from: "+DATA_FILE);
+                return loadedData;
+          //catch block that handles the normal scenario(first time feeding data) when the file doesn't exist yet
+          //returns null-the calling code must check for this null return value and know to initialize all data structures
+        } catch(FileNotFoundException e) {
+            System.out.println("Data File not found,so Starting with empty data.");
+            return null;
+          //catch block handles all issues during the loading process
+          //returns null-to ensure the program can still start(with fresh data) rather than crashing
+        } catch(IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("ERROR loading data: "+e.getMessage());
+            return null;
+        }
+    }
+    public static Person findPersonById(List<Person> people,String ID) {
+        for(Person p : people) {
+            if(p.getId().equals(ID)) {
+                return p;
+            }
+        }
+        return null;
+    }
+    public static Course findCourseByCode(List<Course> courses,String code) {
+        for(Course c : courses) {
+            if(c.getCourseCode().equals(code)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+
     //final is used(so once initialized,the pointer people will always point to that particular arrayList no matter what)
     private final List<Person> people;
     private final List<Course> courses;

@@ -1,5 +1,7 @@
 //This class is the main application(contains main method),usually interacts with user
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -10,6 +12,11 @@ public class Application {
         person.displayBasicInfo();
         person.displayRole();
     }*/
+    
+    //these are the main lists(that are passed as arguments for saveData fn)
+    public static List<Course> courseList=new ArrayList<>();
+    public static List<Person> personList=new ArrayList<>();
+
     public static void main(String[] args) {
         Manager m=new Manager();
         Scanner sc=new Scanner(System.in);
