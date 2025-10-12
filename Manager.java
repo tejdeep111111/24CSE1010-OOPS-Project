@@ -4,7 +4,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -72,13 +71,19 @@ public class Manager {
     private final List<Person> people;
     private final List<Course> courses;
     private final Scanner scnr;
-        public Manager() {
-            this.people=new ArrayList<>();
-            this.courses=new ArrayList<>();
+        public Manager(List<Course> courses,List<Person> people) {
+            this.people=people;
+            this.courses=courses;
             this.scnr=new Scanner(System.in);
-            initializeData();
+            //initializing default data only if we have no prev Data(lists are empty)
+            if(courses.isEmpty() && people.isEmpty()) {
+                initializeData();
+                System.out.println("Initializing default university data.");
+            }
+            else {
+                System.out.println("Using loaded university data.");
+            }
         }
-    //data of professors and courses(automatically fed(when constructor of Manager is called))
     private void initializeData() {
         Course oops=new Course("Object Oriented Programming","CS203",1);
         Course oopsLab=new Course("Object Oriented Programming Lab", "CS206",62);

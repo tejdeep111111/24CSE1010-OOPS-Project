@@ -16,9 +16,15 @@ public class Application {
     //these are the main lists(that are passed as arguments for saveData fn)
     public static List<Course> courseList=new ArrayList<>();
     public static List<Person> personList=new ArrayList<>();
-
+    @SuppressWarnings("unchecked")
     public static void main(String[] args) {
-        Manager m=new Manager();
+        //an attempt to load previous data from an existing file(if exists)
+        Object[] prevData =Manager.loadData();
+        if(prevData!=null) {
+            courseList =(List<Course>) prevData[0];
+            personList =(List<Person>) prevData[1];
+        }
+        Manager m=new Manager(courseList,personList);
         Scanner sc=new Scanner(System.in);
         int choice=-1;
         while(choice!=0) {
@@ -43,6 +49,7 @@ public class Application {
                     m.viewStatus();
                     break;
                 case 0:
+                    Manager.saveData(courseList, personList);
                     System.out.println("Exiting System.");
                     break;
                 default:
