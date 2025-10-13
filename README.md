@@ -1,1 +1,1 @@
-# 24CSE1010-OOPS-Project
+# OOPS Project-University Course Registration System
