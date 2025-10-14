@@ -1,5 +1,3 @@
-
-
 //This class is used to create course instances(Ex-CS203)
 
 import java.io.Serializable;
@@ -9,13 +7,15 @@ public class Course implements Serializable{
     private String courseCode;
     private int maxCapacity;
     private int currentEnrollment;
+    private EnumSem semester; 
     
     //Constructor 
-    public Course(String courseName,String courseCode,int maxCapacity) {
+    public Course(String courseName,String courseCode,EnumSem semester,int maxCapacity) {
         this.courseName=courseName;
         this.courseCode=courseCode;
         this.maxCapacity=maxCapacity;
         this.currentEnrollment=0;
+        this.semester=semester;
     }
     public String getCourseName() {return courseName;}
     public String getCourseCode() {return courseCode;}
@@ -30,4 +30,5 @@ public class Course implements Serializable{
         }
     }
     public void incrementEnrollment() {currentEnrollment++;}
+    public EnumSem getSemester() {return semester;}
 }
