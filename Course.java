@@ -1,3 +1,5 @@
+
+
 //This class is used to create course instances(Ex-CS203)
 
 import java.io.Serializable;

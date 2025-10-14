@@ -1,17 +1,28 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+//Added for getting current month/year
+import java.util.Calendar;
+
+
+
 //This class is inherited from the abstract base class Person
 public class Student extends Person {
     private int joiningYear;
     private String major;
     private List<Course> registeredCourses;
+    private EnumSem semester;
     //Constructor
     public Student(String name,String id,int joiningYear,String major) {
         super(name,id,EnumRole.STUDENT);
         this.joiningYear=joiningYear;
         this.major=major;
         this.registeredCourses=new ArrayList<>();
+
+
+
     }
     //member function to register a course to a student(Can throw CourseFullException)
     public void registerCourse(Course course) throws CourseFullException{
@@ -56,4 +67,5 @@ public class Student extends Person {
             System.out.println("Error: "+getName()+" is not registered for"+course.getCourseCode()+".");
         }
     }
+    
 }

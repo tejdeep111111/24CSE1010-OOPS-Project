@@ -1,8 +1,11 @@
-//This class is the main application(contains main method),usually interacts with user
+
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+
 
 public class Application {
     /*
