@@ -6,8 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Calendar;
 
 
 
@@ -90,9 +93,9 @@ public class Manager {
             }
         }
     private void initializeData() {
-        Course oops=new Course("Object Oriented Programming","CS203",1);
-        Course oopsLab=new Course("Object Oriented Programming Lab", "CS206",62);
-        Course dsa=new Course("Data Structures and Algorithms","CS200", 60);
+        Course oops=new Course("Object Oriented Programming","CS203",EnumSem.SEMESTER_3,1);
+        Course oopsLab=new Course("Object Oriented Programming Lab", "CS206",EnumSem.SEMESTER_3,62);
+        Course dsa=new Course("Data Structures and Algorithms","CS200",EnumSem.SEMESTER_3, 60);
         Professor mini=new Professor("Dr.Mini S", "CSE");
         Professor vnk=new Professor("Dr.K Venkat Naresh", "CSE");
         courses.add(oops);
@@ -121,15 +124,25 @@ public class Manager {
         }
         return null;
     }
+    //helper method to read 
+    private String readString(String prompt) {
+        System.out.println(prompt);
+        return scnr.nextLine();
+        
+    }
     public void addNewStudent() {
-        System.out.println("Enter Student Name: ");
-        String name=scnr.nextLine();
-        System.out.println("Enter Student Major: ");
-        String major=scnr.nextLine();
-        System.out.println("Enter Student ID: ");
-        String id=scnr.nextLine();
-        System.out.println("Enter joiningYear: ");
-        int joiningYear=scnr.nextInt();
+        String name=readString("Enter Student Name: ");
+        String major=readString("Enter Student Major: ");
+        String id=readString("Enter Student ID: ");
+        String yearInput=readString("Enter joiningYear: ");
+        int joiningYear=0;
+        try {
+            joiningYear=Integer.parseInt(yearInput);
+        } catch(NumberFormatException e) {
+            System.out.println("Invalid year entered.Using the current year.");
+            Calendar calender=Calendar.getInstance();
+            joiningYear=calender.get(Calendar.YEAR);
+        }
         Student newStudent=new Student(name, id, joiningYear, major);
         people.add(newStudent);
         System.out.println("Student created successfully. ID: "+newStudent.getId());
@@ -182,4 +195,24 @@ public class Manager {
             System.out.println("Error : Person with ID "+id+" not found.");
         }
     }   
+    public List<Course> getCoursesBySemester(EnumSem semester) {
+        List<Course> result=new ArrayList<>();
+        for(Course c : this.courses) {
+            if(c.getSemester()==semester) {
+                result.add(c);
+            }
+        }
+        return result;
+    }
+    public int getMenuChoice() {
+        System.out.println();
+        System.out.print("Enter your choice: ");
+        String input=scnr.nextLine();
+        try {
+            return Integer.parseInt(input);
+        } catch(NumberFormatException e) {
+            System.out.println("Ivalid input.Please enter a number.");
+            return -1;
+        }
+    }
 }

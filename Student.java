@@ -1,28 +1,19 @@
 import java.util.ArrayList;
 import java.util.List;
-
-
-
 //Added for getting current month/year
 import java.util.Calendar;
-
-
 
 //This class is inherited from the abstract base class Person
 public class Student extends Person {
     private int joiningYear;
     private String major;
     private List<Course> registeredCourses;
-    private EnumSem semester;
     //Constructor
     public Student(String name,String id,int joiningYear,String major) {
         super(name,id,EnumRole.STUDENT);
         this.joiningYear=joiningYear;
         this.major=major;
         this.registeredCourses=new ArrayList<>();
-
-
-
     }
     //member function to register a course to a student(Can throw CourseFullException)
     public void registerCourse(Course course) throws CourseFullException{
@@ -50,8 +41,16 @@ public class Student extends Person {
     //implementation of the abstract method of abstact base class Person
     @Override
     public void displayRole() {
+
+
+        Calendar calendar=Calendar.getInstance();
+        int currentYear=calendar.get(Calendar.YEAR);
+        EnumSem currentSemester=getCurrentSemester(currentYear);
+
+
         System.out.println("Joined in the academic year: "+joiningYear);
         System.out.println("Major in: "+major);
+        System.out.println("Current Estimated Semester: "+currentSemester.toString());
         System.out.println("Registered Courses("+registeredCourses.size()+"):");
         //is a java for each loop(iterates linearly upto the end of the list)
         for(Course course : registeredCourses) {
@@ -67,5 +66,13 @@ public class Student extends Person {
             System.out.println("Error: "+getName()+" is not registered for"+course.getCourseCode()+".");
         }
     }
-    
+    public int caluclateSemesterNumber(int currentYear) {
+        int yearsInCollege=currentYear-joiningYear;
+        int semesterNumber=(yearsInCollege*2)+1;
+        return Math.min(semesterNumber,8);
+    }
+    public EnumSem getCurrentSemester(int currentYear) {
+        int number=caluclateSemesterNumber(currentYear);
+        return EnumSem.getByNumber(number);
+    }
 }

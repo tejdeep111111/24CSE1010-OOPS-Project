@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Application {
     /*
@@ -23,7 +22,6 @@ public class Application {
             personList =(List<Person>) prevData[1];
         }
         Manager m=new Manager(courseList,personList);
-        Scanner sc=new Scanner(System.in);
         int choice=-1;
         while(choice!=0) {
             System.out.println();
@@ -33,9 +31,7 @@ public class Application {
             System.out.println("3.View Staus");
             System.out.println("0.Exit");
             System.out.println();
-            System.out.print("Enter your choice: ");
-            String input=sc.nextLine();
-            choice=Integer.parseInt(input);
+            choice=m.getMenuChoice();
             switch (choice) {
                 case 1:
                     m.addNewStudent();

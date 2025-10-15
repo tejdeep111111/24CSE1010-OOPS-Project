@@ -19,9 +19,9 @@ public enum EnumSem {
         }
         return null;
     }
-    public EnumSem getByNumber(int number) {
+    public static EnumSem getByNumber(int number) {
         for(EnumSem sem : EnumSem.values()) {
-            if(sem.number==this.number) {
+            if(sem.number==number) {
                 return sem;
             }
         }
