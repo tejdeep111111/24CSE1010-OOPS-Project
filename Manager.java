@@ -92,20 +92,93 @@ public class Manager {
                 System.out.println("Using loaded university data.");
             }
         }
+    private void addNewCourse() {
+        System.out.println("\n---Add New Course---");
+        String courseName=readString("Enter Course Name: ");
+        String courseCode=readString("Enter Course Code: ");
+        int semNumber=readInt("Enter Semester Number(1-8): ");
+        EnumSem semester=EnumSem.getByNumber(semNumber);
+        if(semester==null || semNumber==0 || semNumber>8) {
+            System.out.println("Error: Invalid Semester number. Course could not be created.");
+            return;
+        }
+        int maxCapacity=readInt("Enter Maximum Capacity: ");
+
+        Course newCourse=new Course(courseName, courseCode, semester, maxCapacity);
+        courses.add(newCourse);
+        System.out.println("Course created successfully:");
+        System.out.println(newCourse.getCourseInfo());
+    }
+    private void addNewProfessor() {
+        System.out.println("\n---Add New Professor---");
+        String name=readString("Enter Professor Name: ");
+        String department=readString("Enter Department: "); 
+
+        Professor newProfessor=new Professor(name, department);
+        people.add(newProfessor);
+        System.out.println("\nProfessor Created successfully.");
+        newProfessor.displayBasicInfo();
+        //i want here to ask user that if he wants to assign this professor to courses
+        //we can also do this later on
+        String control="Y";
+        do {
+            String courseCode=readString("Enter Course code to assign that course to this professor(or Enter NULL to skip)");
+            if(courseCode.equals("NULL") || courseCode.equals("null")) {
+                System.out.println("Skipping course assignment.");
+                break;
+            }
+            else {
+                assignProfessorToCourse(newProfessor.getId(), courseCode);
+            }
+            control=readString("Another course assignment to this professor? (Y/N): ").toUpperCase();
+        } while(control.equals("Y"));
+    }
+    private void assignProfessorToCourse(String professorId,String courseCode) {
+        Course courseToBeTaught=getCourseByCode(courseCode);
+        if(courseToBeTaught==null) {
+            System.out.println("ERROR: Course not found with corresponding courseCode.");
+            return;
+        }
+        else {
+            Person personFound=gerPersonById(professorId);
+            if(personFound instanceof Professor) {
+                Professor professorFound=(Professor) personFound;
+                professorFound.teachCourse(courseToBeTaught);
+            }
+            else {
+                System.out.println("ERROR: Professor not found with corresponding id.");
+            }
+        }
+    }
     private void initializeData() {
-        Course oops=new Course("Object Oriented Programming","CS203",EnumSem.SEMESTER_3,1);
+        /*Course oops=new Course("Object Oriented Programming","CS203",EnumSem.SEMESTER_3,1);
         Course oopsLab=new Course("Object Oriented Programming Lab", "CS206",EnumSem.SEMESTER_3,62);
         Course dsa=new Course("Data Structures and Algorithms","CS200",EnumSem.SEMESTER_3, 60);
         Professor mini=new Professor("Dr.Mini S", "CSE");
         Professor vnk=new Professor("Dr.K Venkat Naresh", "CSE");
         courses.add(oops);
-        courses.add(oopsLab);
+        courses.add(oopsLab); 
         courses.add(dsa);
         people.add(mini);
         people.add(vnk);
         mini.teachCourse(oops);
         mini.teachCourse(oopsLab);
-        vnk.teachCourse(dsa);
+        vnk.teachCourse(dsa);*/
+
+        //first we take all courses as inputs asking user to do
+        System.out.println("Starting the program with getting all courses first");
+        int control=1;
+        do {
+            addNewCourse();
+            control=readInt("\nAdd another course? (1/0): ");
+        } while(control==1);
+        System.out.println("Completed with Entering Courses.Start Entering Professor Details.");
+        control=1;
+        do {
+            addNewProfessor();
+            control=readInt("\nAdd another professor? (1/0): ");
+        } while(control==1);
+        System.out.println("Done with entering professor details.");
     }
     public Person gerPersonById(String id) {
         for(Person p:people) {
@@ -124,12 +197,31 @@ public class Manager {
         }
         return null;
     }
+
+
     //helper method to read 
     private String readString(String prompt) {
-        System.out.println(prompt);
-        return scnr.nextLine();
-        
+        String input;
+        do {
+            System.out.println(prompt);
+            input=scnr.nextLine();
+            if(input.trim().isEmpty()) {
+                System.out.println("Input cannot be Empty. Please try again.");
+            }
+        } while(input.trim().isEmpty());
+        return input;
     }
+    private int readInt(String prompt) {
+        String input=readString(prompt);
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+
+
     public void addNewStudent() {
         String name=readString("Enter Student Name: ");
         String major=readString("Enter Student Major: ");
