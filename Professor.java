@@ -1,9 +1,6 @@
 
-
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 //This class is inherited from the abstract class Person
 public class Professor extends Person{
@@ -17,7 +14,7 @@ public class Professor extends Person{
     private List<Course> coursesTaught;
     //Constructor
     public Professor(String name,String department) {
-        super(name,generateUniqueId(),EnumRole.PROFESSOR);
+        super(name,generateUniqueId(),Enums.EnumRole.PROFESSOR);
         this.department=department;
         this.coursesTaught=new ArrayList<>();
     }
@@ -33,7 +30,7 @@ public class Professor extends Person{
         System.out.println(student.getName()+" is enrolled for the  course "+course.getCourseCode());
     }
     //member function to submit the grade of a course to a student(by calling the member function assignGrade of class student)
-    public void submitGrade(Course course,Student student,EnumGrade grade) {
+    public void submitGrade(Course course,Student student,Enums.EnumGrade grade) {
         student.assignGrade(course, grade);
         System.out.println("Professor,"+getName()+" submits grade "+grade.toString()+" for "+student.getName()+" in "+course.getCourseCode());
     }

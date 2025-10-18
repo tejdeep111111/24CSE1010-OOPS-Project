@@ -10,14 +10,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Calendar;
-
-
-
 
 public class Manager {
-
-
+    
     private static final String DATA_FILE="university_data.ser";
     //method that does Serialization(Saving Data)
     public static void saveData(List<Course> courses,List<Person> people) {
@@ -97,7 +92,7 @@ public class Manager {
         String courseName=readString("Enter Course Name: ");
         String courseCode=readString("Enter Course Code: ");
         int semNumber=readInt("Enter Semester Number(1-8): ");
-        EnumSem semester=EnumSem.getByNumber(semNumber);
+        Enums.EnumSem semester=Enums.EnumSem.getByNumber(semNumber);
         if(semester==null || semNumber==0 || semNumber>8) {
             System.out.println("Error: Invalid Semester number. Course could not be created.");
             return;
@@ -249,7 +244,7 @@ public class Manager {
         Course course=getCourseByCode(courseCode);
         Professor enrollingProfessor=null;
         for(Person p:people) {
-            if(p.getRole()==EnumRole.PROFESSOR) {
+            if(p.getRole()==Enums.EnumRole.PROFESSOR) {
                 enrollingProfessor=(Professor) p;
                 break;
             }
@@ -287,7 +282,7 @@ public class Manager {
             System.out.println("Error : Person with ID "+id+" not found.");
         }
     }   
-    public List<Course> getCoursesBySemester(EnumSem semester) {
+    public List<Course> getCoursesBySemester(Enums.EnumSem semester) {
         List<Course> result=new ArrayList<>();
         for(Course c : this.courses) {
             if(c.getSemester()==semester) {

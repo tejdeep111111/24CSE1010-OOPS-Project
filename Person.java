@@ -1,16 +1,14 @@
 
-
 //Serialisation is the process of converting an entire java object(including all its internal data) into a stream of bytes
 import java.io.Serializable;
-
 
 //Person will be an abstract class(That can't be instantiated but only inherited)
 public abstract class Person implements Serializable{
     private String name;
     private String id;
-    private final EnumRole role;
+    private final Enums.EnumRole role;
     //Constructor(abstract classes can have constructors)
-    public Person(String name,String id,EnumRole role) {
+    public Person(String name,String id,Enums.EnumRole role) {
         this.name=name;
         this.id=id;
         this.role=role;
@@ -23,7 +21,7 @@ public abstract class Person implements Serializable{
     public void displayBasicInfo() {
         System.out.println("NAME: "+name+",ID: "+id+",Role: "+role.toString());
     }
-    public EnumRole getRole() {
+    public Enums.EnumRole getRole() {
         return role;
     }
 }

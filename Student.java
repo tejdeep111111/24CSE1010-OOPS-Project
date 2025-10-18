@@ -1,5 +1,7 @@
+
 import java.util.ArrayList;
 import java.util.List;
+
 //Added for getting current month/year
 import java.util.Calendar;
 
@@ -10,7 +12,7 @@ public class Student extends Person {
     private List<Course> registeredCourses;
     //Constructor
     public Student(String name,String id,int joiningYear,String major) {
-        super(name,id,EnumRole.STUDENT);
+        super(name,id,Enums.EnumRole.STUDENT);
         this.joiningYear=joiningYear;
         this.major=major;
         this.registeredCourses=new ArrayList<>();
@@ -30,7 +32,7 @@ public class Student extends Person {
         System.out.println(getName()+" registered for: "+course.getCourseCode());
     }
     //member function to assign a grade to a student
-    public void assignGrade(Course course,EnumGrade grade) {
+    public void assignGrade(Course course,Enums.EnumGrade grade) {
         if(registeredCourses.contains(course)) {
             System.out.println("Assigned grade "+grade.toString()+" to "+this.getName()+" in "+course.getCourseCode());
         } 
@@ -45,7 +47,7 @@ public class Student extends Person {
 
         Calendar calendar=Calendar.getInstance();
         int currentYear=calendar.get(Calendar.YEAR);
-        EnumSem currentSemester=getCurrentSemester(currentYear);
+        Enums.EnumSem currentSemester=getCurrentSemester(currentYear);
 
 
         System.out.println("Joined in the academic year: "+joiningYear);
@@ -71,8 +73,8 @@ public class Student extends Person {
         int semesterNumber=(yearsInCollege*2)+1;
         return Math.min(semesterNumber,8);
     }
-    public EnumSem getCurrentSemester(int currentYear) {
+    public Enums.EnumSem getCurrentSemester(int currentYear) {
         int number=caluclateSemesterNumber(currentYear);
-        return EnumSem.getByNumber(number);
+        return Enums.EnumSem.getByNumber(number);
     }
 }
